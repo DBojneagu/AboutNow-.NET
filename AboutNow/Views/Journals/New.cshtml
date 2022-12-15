@@ -1,0 +1,40 @@
+﻿<h2> Adaugare Jurnal </h2>
+<br />
+
+<form method="post" action="/Journals/New">
+
+    <label>Titlul Jurnalului</label>
+    <input type="text" name="Title" /> 
+    @*e foarte important ca name sa ia aloarea EXACTA a numele atributului pe care il avem
+        in baza de date*@
+    <br />
+    <br />
+
+    <label>Continut Jurnal</label>
+    <input type="text" name="Content" />
+
+    <br />
+    <br />
+
+    <input type="Hidden" name="Date" value="@DateTime.Now"/>
+    <br />
+
+    <label>Selectati  Categoria</label>
+
+    <select name="CategoryId">
+
+        @foreach (var item in ViewBag.Categories)
+        {
+            <option value="@item.Id">@item.CategoryName</option>
+        }
+
+
+    </select>
+    <br />
+
+    <button class="btn btn-warning mt-5" type = "submit">Adauga Jurnal</button>
+
+    
+
+
+</form>

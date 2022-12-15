@@ -1,0 +1,40 @@
+﻿   
+<h2>Afisare Jurnale</h2>
+<br />
+<div class="d-flex justify-content-center">
+    <a class = "btn btn-outline-warning " href ="/Categories/Index">Afisare Categorii</a>
+    <br />
+    <a class=  "btn btn-outline-warning "   href="Journals/New">Adauga Jurnal</a>
+    <br />
+</div>
+
+<br />
+
+
+@foreach (var journal in ViewBag.Journals)
+{
+    <div class="card " style="width : 35rem;
+                            margin : 0 auto;
+                            float : none;
+                            margin-bottom:10px;">
+       
+        <div class="card-body">
+
+            <div class="d-flex alert-warning mb-3 justify-content-center">
+            <h3 class="card-title  py-3 px-3 rounded-3 d-flex text-center">@journal.Title</h3>
+            </div>
+            <div class="card-text">@journal.Content</div> 
+
+            <div class="row mt-5">
+            <div><i class="bi bi-globe-americas  "></i> @journal.Category.CategoryName</div>
+
+            <a class="btn btn-warning mb-3 mt-3" style="width: 10rem" href ="/Journals/Show/@journal.Id">Afisare Jurnal</a>
+
+            <span class=""> @journal.Date</span>
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <br />
+}
