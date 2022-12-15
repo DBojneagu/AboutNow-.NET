@@ -1,16 +1,14 @@
 ﻿using AboutNow.Data;
 using AboutNow.Models;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace AboutNow.Controllers
 {
     public class JournalsController : Controller
     {
         private readonly ApplicationDbContext db;
-        public JournalsController (ApplicationDbContext context )
+        public JournalsController(ApplicationDbContext context)
         {
             db = context;
         }
@@ -33,7 +31,7 @@ namespace AboutNow.Controllers
         // si o sa aiba HTTPGet implicit
         public IActionResult Show(int id)
         {
-            Journal journal = db.Journals.Include("Category")
+            Journal journal = db.Journals.Include("Category").Include("Comments")
                                                   .Where(jrn => jrn.Id == id)
                                                   .First();
 
@@ -63,9 +61,9 @@ namespace AboutNow.Controllers
         {
             try
             {
-                db.Journals.Add(journal); 
-                db.SaveChanges(); 
-                return RedirectToAction("Index");                                  
+                db.Journals.Add(journal);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
             catch (Exception)
@@ -118,7 +116,7 @@ namespace AboutNow.Controllers
 
 
         [HttpPost]
-        
+
         public IActionResult Delete(int id)
         {
             Journal journal = db.Journals.Find(id);
