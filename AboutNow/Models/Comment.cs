@@ -5,7 +5,7 @@ namespace AboutNow.Models
     public class Comment
     {
         [Key]
-        public int CommentId { get; set; }
+        public int Id { get; set; }
         [Required(ErrorMessage = "Continutul este obligatoriu")]
         public string Content { get; set; }
         public DateTime Date { get; set; }
