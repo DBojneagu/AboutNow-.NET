@@ -9,16 +9,19 @@ namespace AboutNow.Models
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Titlul este obligatoriu")]
+        [StringLength(100, ErrorMessage = "Titlul trebuie sub 100 de caractere")]
+        [MinLength(3, ErrorMessage = "Titlul trebuie sa aiba mai mult de 3 caractere")]
         public string Title { get; set; }
         [Required(ErrorMessage = "Continutul Jurnalului  este obligatoriu")]
         public string Content { get; set; }
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Categoria este obligatorie")]
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public int? CategoryId { get; set; }
+
+        public virtual Category? Category { get; set; }
+        public virtual ICollection<Comment>? Comments { get; set; }
 
         [NotMapped]
-        public IEnumerable<SelectListItem> Categ { get; set; }
+        public IEnumerable<SelectListItem>? Categ { get; set; }
     }
 }

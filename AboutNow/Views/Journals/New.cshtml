@@ -2,19 +2,27 @@
 <h2 class="text-center" > Adaugare Jurnal </h2>
 <br />
 
-<form method="post" action="/Journals/New">
-
+@using (Html.BeginForm(actionName:"New",controllerName:"Journals"))
+{
     @Html.Label("Title","Titlul Jurnalului")
     <br />
 
     @Html.TextBox("Title",null,new {@class = "form-control",@placeholder = "How should we name it?"})
     <br />
     
+    @Html.ValidationMessageFor(m => m.Title,null,new {@class = "text-danger"})
+
+    <br />
+    <br />
+
+
     @Html.Label("Content","Continutul Jurnalului")
 
 
     <br />
     @Html.TextArea("Content",null,new {@class = "form-control",@placeholder = "What's on your mind?"})
+
+    @Html.ValidationMessage("Content",null,new { @class = "text-danger"})
 
     <br />
     <br />
@@ -22,10 +30,11 @@
     <label>Selectati categoria</label>
     @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"),
     "Selectati categoria", new { @class = "form-control"})
+
+    @Html.ValidationMessageFor(m=>m.CategoryId,null,new {@class = "text-danger"})
     <br />
     <button class="btn btn-warning mt-5" type = "submit">Adauga Jurnal</button>
-
+}
     
 
 
-</form>

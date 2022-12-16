@@ -41,14 +41,15 @@ namespace ArticlesApp.Controllers
         [HttpPost]
         public ActionResult New(Category cat)
         {
-            try
+            if (ModelState.IsValid)
             {
-                TempData["message"] = "Categoria a fost adaugata cu succes ";
                 db.Categories.Add(cat);
                 db.SaveChanges();
+                TempData["message"] = "Categoria a fost adaugata";
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+
+            else
             {
                 return View(cat);
             }
@@ -63,21 +64,18 @@ namespace ArticlesApp.Controllers
         [HttpPost]
         public ActionResult Edit(int id, Category requestCategory)
         {
-            try
+            Category category = db.Categories.Find(id);
+
+            if (ModelState.IsValid)
             {
-                Category category = db.Categories.Find(id);
 
-                {
-                    TempData["message"] = "Categoria a fost editata cu succes";
-                    category.CategoryName = requestCategory.CategoryName;
-                    db.SaveChanges();
-                }
-
+                category.CategoryName = requestCategory.CategoryName;
+                db.SaveChanges();
+                TempData["message"] = "Categoria a fost modificata!";
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            else
             {
-
                 return View(requestCategory);
             }
         }

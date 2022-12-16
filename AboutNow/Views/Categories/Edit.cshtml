@@ -3,16 +3,17 @@
     ViewBag.Title = "Editare categorie";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2class>
+<h2 class="text-center">@ViewBag.Title</h2>
 
-<form method="post" action="/Categories/Edit/@Model.Id">
+@using (Html.BeginForm(controllerName:"Categories",actionName:"Edit",method : FormMethod.Post , routeValues :new{id = Model.Id}))
 
-
+{
     @Html.Label("CategoryName","Titlul Categoriei")
     <br />
     @Html.TextArea("CategoryName",null,new {@class = "form-control", @placeholder ="How should we name it ?"})
+    @Html.ValidationMessage("CategoryName",null,new{@class ="text-danger"})
     <br /><br />
 
     <button class="btn btn-success" type="submit">Modifica categoria</button>
-</form>
+}
 

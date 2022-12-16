@@ -46,6 +46,32 @@ namespace AboutNow.Controllers
             return View(journal);
         }
 
+        [HttpPost]
+        public IActionResult Show([FromForm] Comment comment)
+        {
+            comment.Date = DateTime.Now;
+
+            if (ModelState.IsValid)
+            {
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                return Redirect("/Journals/Show/" + comment.JournalId);
+            }
+
+            else
+            {
+                Journal journal = db.Journals.Include("Category").Include("Comments")
+                               .Where(journal => journal.Id == comment.JournalId)
+                               .First();
+
+                //return Redirect("/Articles/Show/" + comm.ArticleId);
+
+                return View(journal);
+            }
+        }
+
+
+
         // Se afiseaza formularul in care se vor completa datele unui jurnalul
         // impreuna cu selectarea categoriei din care face parte jurnalul
         public IActionResult New()
@@ -65,15 +91,15 @@ namespace AboutNow.Controllers
         {
             journal.Date = DateTime.Now;
             journal.Categ = GetAllCategories();
-            try
+
+            if (ModelState.IsValid)
             {
                 db.Journals.Add(journal);
                 db.SaveChanges();
                 TempData["message"] = "Jurnalul a fost adaugat";
                 return RedirectToAction("Index");
             }
-
-            catch (Exception)
+            else
             {
                 return View(journal);
             }
@@ -102,19 +128,18 @@ namespace AboutNow.Controllers
 
             Journal journal = db.Journals.Find(id);
             requestJournal.Categ = GetAllCategories();
-            try
+
+            if (ModelState.IsValid)
             {
-                {
-                    journal.Title = requestJournal.Title;
-                    journal.Content = requestJournal.Content;
-                    journal.Date = requestJournal.Date;
-                    journal.CategoryId = requestJournal.CategoryId;
-                    db.SaveChanges();
-                }
+                journal.Title = requestJournal.Title;
+                journal.Content = requestJournal.Content;
+                journal.Date = requestJournal.Date;
+                journal.CategoryId = requestJournal.CategoryId;
+                db.SaveChanges();
                 TempData["message"] = "Jurnal Editat cu Succes";
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            else
             {
                 return View(requestJournal);
             }

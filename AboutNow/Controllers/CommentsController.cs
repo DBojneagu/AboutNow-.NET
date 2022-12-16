@@ -13,26 +13,6 @@ namespace AboutNow.Controllers
         }
 
 
-        // Adaugarea unui comentariu asociat unui articol in baza de date
-        [HttpPost]
-        public IActionResult New(Comment comm)
-        {
-            comm.Date = DateTime.Now;
-
-            try
-            {
-                db.Comments.Add(comm);
-                db.SaveChanges();
-                return Redirect("/Journals/Show/" + comm.JournalId);
-            }
-
-            catch (Exception)
-            {
-                return Redirect("/Journals/Show/" + comm.JournalId);
-            }
-
-        }
-
         // Stergerea unui comentariu asociat unui articol din baza de date
         [HttpPost]
         public IActionResult Delete(int id)
@@ -49,15 +29,15 @@ namespace AboutNow.Controllers
         public IActionResult Edit(int id)
         {
             Comment comm = db.Comments.Find(id);
-            ViewBag.Comment = comm;
-            return View();
+
+            return View(comm);
         }
 
         [HttpPost]
         public IActionResult Edit(int id, Comment requestComment)
         {
             Comment comm = db.Comments.Find(id);
-            try
+            if (ModelState.IsValid)
             {
 
                 comm.Content = requestComment.Content;
@@ -66,9 +46,9 @@ namespace AboutNow.Controllers
 
                 return Redirect("/Journals/Show/" + comm.JournalId);
             }
-            catch (Exception e)
+            else
             {
-                return Redirect("/Journals/Show/" + comm.JournalId);
+                return View(requestComment);
             }
 
         }
