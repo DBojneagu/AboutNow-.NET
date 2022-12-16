@@ -101,6 +101,7 @@ namespace AboutNow.Controllers
             // in variabila asta pt ca le am in edit si de acolo le modific.
 
             Journal journal = db.Journals.Find(id);
+            requestJournal.Categ = GetAllCategories();
             try
             {
                 {
@@ -113,9 +114,9 @@ namespace AboutNow.Controllers
                 TempData["message"] = "Jurnal Editat cu Succes";
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return RedirectToAction("Edit", id);
+                return View(requestJournal);
             }
         }
 

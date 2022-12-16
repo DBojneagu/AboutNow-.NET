@@ -2,14 +2,14 @@
     ViewBag.Title = "Lista categorii";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 <br />
 @if (TempData.ContainsKey("message"))
 {
     <h2 class="alert-warning text-center ">@ViewBag.Message</h2>
 }
 
-<a href="/Journals/Index">Inapoi la Journal</a>
+<a class="btn btn-warning" href="/Journals/Index">Inapoi la Journal</a>
 <br />
 <br />
 
