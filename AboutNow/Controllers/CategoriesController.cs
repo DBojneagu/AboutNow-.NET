@@ -14,18 +14,23 @@ namespace ArticlesApp.Controllers
         }
         public ActionResult Index()
         {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.Message = TempData["message"].ToString();
+            }
             var categories = from category in db.Categories
                              orderby category.CategoryName
                              select category;
             ViewBag.Categories = categories;
+
             return View();
         }
 
         public ActionResult Show(int id)
         {
             Category category = db.Categories.Find(id);
-            ViewBag.Category = category;
-            return View();
+
+            return View(category);
         }
 
         public ActionResult New()
@@ -38,21 +43,21 @@ namespace ArticlesApp.Controllers
         {
             try
             {
+                TempData["message"] = "Categoria a fost adaugata cu succes ";
                 db.Categories.Add(cat);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                return View();
+                return View(cat);
             }
         }
 
         public ActionResult Edit(int id)
         {
             Category category = db.Categories.Find(id);
-            ViewBag.Category = category;
-            return View();
+            return View(category);
         }
 
         [HttpPost]
@@ -63,6 +68,7 @@ namespace ArticlesApp.Controllers
                 Category category = db.Categories.Find(id);
 
                 {
+                    TempData["message"] = "Categoria a fost editata cu succes";
                     category.CategoryName = requestCategory.CategoryName;
                     db.SaveChanges();
                 }
@@ -71,8 +77,8 @@ namespace ArticlesApp.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.Category = requestCategory;
-                return View();
+
+                return View(requestCategory);
             }
         }
 
@@ -82,6 +88,7 @@ namespace ArticlesApp.Controllers
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
+            TempData["message"] = "Categoria a fost stearsa cu succes";
             return RedirectToAction("Index");
         }
     }

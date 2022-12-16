@@ -1,37 +1,28 @@
-﻿<h2> Adaugare Jurnal </h2>
+﻿@model AboutNow.Models.Journal
+<h2> Adaugare Jurnal </h2>
 <br />
 
 <form method="post" action="/Journals/New">
 
-    <label>Titlul Jurnalului</label>
-    <input type="text" name="Title" /> 
-    @*e foarte important ca name sa ia aloarea EXACTA a numele atributului pe care il avem
-        in baza de date*@
+    @Html.Label("Title","Titlul Jurnalului")
+    <br />
+
+    @Html.TextBox("Title",null,new {@class = "form-control",@placeholder = "How should we name it?"})
+    <br />
+    
+    @Html.Label("Content","Continutul Jurnalului")
+
+
+    <br />
+    @Html.TextArea("Content",null,new {@class = "form-control",@placeholder = "What's on your mind?"})
+
     <br />
     <br />
 
-    <label>Continut Jurnal</label>
-    <input type="text" name="Content" />
-
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"),
+    "Selectati categoria", new { @class = "form-control"})
     <br />
-    <br />
-
-    <input type="Hidden" name="Date" value="@DateTime.Now"/>
-    <br />
-
-    <label>Selectati  Categoria</label>
-
-    <select name="CategoryId">
-
-        @foreach (var item in ViewBag.Categories)
-        {
-            <option value="@item.Id">@item.CategoryName</option>
-        }
-
-
-    </select>
-    <br />
-
     <button class="btn btn-warning mt-5" type = "submit">Adauga Jurnal</button>
 
     

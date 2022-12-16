@@ -1,6 +1,7 @@
 ﻿using AboutNow.Data;
 using AboutNow.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AboutNow.Controllers
@@ -23,6 +24,11 @@ namespace AboutNow.Controllers
             //ViewBag.OriceDenumireSugestiva
             ViewBag.Journals = journals;
 
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.Message = TempData["message"];
+            }
+
             return View();
         }
 
@@ -35,23 +41,21 @@ namespace AboutNow.Controllers
                                                   .Where(jrn => jrn.Id == id)
                                                   .First();
 
-            ViewBag.Journal = journal;
 
-            ViewBag.Category = journal.Category;
 
-            return View();
+            return View(journal);
         }
 
         // Se afiseaza formularul in care se vor completa datele unui jurnalul
         // impreuna cu selectarea categoriei din care face parte jurnalul
         public IActionResult New()
         {
-            var categories = from categ in db.Categories
-                             select categ;
+            Journal journal = new Journal();
+            journal.Categ = GetAllCategories();
 
-            ViewBag.Categories = categories;
 
-            return View();
+            return View(journal);
+
         }
 
         //adaugarea jurnalului in baza de date
@@ -59,16 +63,19 @@ namespace AboutNow.Controllers
         public IActionResult New(Journal journal)
 
         {
+            journal.Date = DateTime.Now;
+            journal.Categ = GetAllCategories();
             try
             {
                 db.Journals.Add(journal);
                 db.SaveChanges();
+                TempData["message"] = "Jurnalul a fost adaugat";
                 return RedirectToAction("Index");
             }
 
             catch (Exception)
             {
-                return RedirectToAction("New");
+                return View(journal);
             }
         }
 
@@ -79,15 +86,12 @@ namespace AboutNow.Controllers
                                             .Where(jrn => jrn.Id == id)
                                             .First();
 
-            ViewBag.Journal = journal;
-            ViewBag.Category = journal.Category;
+            journal.Categ = GetAllCategories();
 
-            var categories = from categ in db.Categories
-                             select categ;
 
-            ViewBag.Categories = categories;
 
-            return View();
+
+            return View(journal);
 
         }
 
@@ -106,6 +110,7 @@ namespace AboutNow.Controllers
                     journal.CategoryId = requestJournal.CategoryId;
                     db.SaveChanges();
                 }
+                TempData["message"] = "Jurnal Editat cu Succes";
                 return RedirectToAction("Index");
             }
             catch (Exception)
@@ -122,7 +127,34 @@ namespace AboutNow.Controllers
             Journal journal = db.Journals.Find(id);
             db.Journals.Remove(journal);
             db.SaveChanges();
+            TempData["message"] = "Jurnalul a fost sters cu succes";
             return RedirectToAction("Index");
+        }
+
+        [NonAction]
+        public IEnumerable<SelectListItem> GetAllCategories()
+        {
+            // generam o lista de tipul SelectListItem fara elemente
+            var selectList = new List<SelectListItem>();
+
+            // extragem toate categoriile din baza de date
+            var categories = from cat in db.Categories
+                             select cat;
+
+            // iteram prin categorii
+            foreach (var category in categories)
+            {
+                // adaugam in lista elementele necesare pentru dropdown
+                // id-ul categoriei si denumirea acesteia
+                selectList.Add(new SelectListItem
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.CategoryName.ToString()
+                });
+            }
+
+            // returnam lista de categorii
+            return selectList;
         }
 
 

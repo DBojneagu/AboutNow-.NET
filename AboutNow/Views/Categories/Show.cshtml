@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AboutNow.Models.Category
+@{
     ViewBag.Title = "Afisare categorie";
 }
 
@@ -8,15 +9,15 @@
 <br />
 
 
-<p>@ViewBag.Category.CategoryName</p>
+<p>@Model.CategoryName</p>
 
-<form method="post" action="/Categories/Delete/@ViewBag.Category.Id">
+<form method="post" action="/Categories/Delete/@Model.Id">
 
     <button class="btn btn-danger" type="submit">Sterge categoria</button>
 
 </form>
 <br />
-<a class="btn alert-success" href="/Categories/Index/">Afisare lista categorii</a>
+<a class="btn alert-warning" href="/Categories/Index/">Afisare lista categorii</a>
 
 <br />
 <hr />
