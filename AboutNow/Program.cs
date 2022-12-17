@@ -1,4 +1,5 @@
 using AboutNow.Data;
+using AboutNow.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,30 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+// Pasul 2 - useri si roluri
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// PASUL 5 - useri si roluri
+//CreateScope Ofera acces la instanta curenta a aplicatiei
+// avem si variabila scope care are un service provider
+// folosit pentru a injecta dependentele in aplicatia
+// dependente -> bd, cookie, sesiune, autentificare
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

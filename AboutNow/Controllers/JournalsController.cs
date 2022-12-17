@@ -1,25 +1,39 @@
 ﻿using AboutNow.Data;
 using AboutNow.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AboutNow.Controllers
 {
+    [Authorize]
     public class JournalsController : Controller
     {
         private readonly ApplicationDbContext db;
-        public JournalsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public JournalsController(
+        ApplicationDbContext context,
+        UserManager<ApplicationUser> userManager,
+        RoleManager<IdentityRole> roleManager
+        )
         {
             db = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         //Se afiseaza lista tuturor journalelor
         //din baza de date impreuna cu categoria din care fac parte
         // HttpGet implicit
+        //Pentru fiecare jurnal se afiseaza si utilizatorul care a postat jurnalul
+
+        [Authorize(Roles = "User,Editor,Admin")]
         public IActionResult Index()
         {
-            var journals = db.Journals.Include("Category");
+            var journals = db.Journals.Include("Category").Include("User");
 
             //ViewBag.OriceDenumireSugestiva
             ViewBag.Journals = journals;
@@ -35,9 +49,10 @@ namespace AboutNow.Controllers
         // Se afiseaza un singur articol in functie de id-ul sau impreuna cu categoria din
         // care face parte 
         // si o sa aiba HTTPGet implicit
+        [Authorize(Roles = "User,Editor,Admin")]
         public IActionResult Show(int id)
         {
-            Journal journal = db.Journals.Include("Category").Include("Comments")
+            Journal journal = db.Journals.Include("Category").Include("Comments").Include("User")
                                                   .Where(jrn => jrn.Id == id)
                                                   .First();
 

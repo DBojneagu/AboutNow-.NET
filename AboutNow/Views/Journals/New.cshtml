@@ -2,8 +2,10 @@
 <h2 class="text-center" > Adaugare Jurnal </h2>
 <br />
 
-@using (Html.BeginForm(actionName:"New",controllerName:"Journals"))
+@using (Html.BeginForm(actionName:"New",controllerName:"Journals",method:FormMethod.Post))
 {
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
     @Html.Label("Title","Titlul Jurnalului")
     <br />
 

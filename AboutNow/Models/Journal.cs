@@ -18,10 +18,17 @@ namespace AboutNow.Models
         [Required(ErrorMessage = "Categoria este obligatorie")]
         public int? CategoryId { get; set; }
 
+        public string? UserId { get; set; }
+
+        // PASUL 6 - useri si roluri
+        public virtual ApplicationUser? User { get; set; }
+
         public virtual Category? Category { get; set; }
         public virtual ICollection<Comment>? Comments { get; set; }
 
         [NotMapped]
         public IEnumerable<SelectListItem>? Categ { get; set; }
+
+
     }
 }

@@ -10,6 +10,12 @@ namespace AboutNow.Models
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public int? JournalId { get; set; }
+
+        public string? UserId { get; set; }
+
+        // PASUL 6 - useri si roluri
+        public virtual ApplicationUser? User { get; set; }
+
         public virtual Journal? Journal { get; set; }
     }
 

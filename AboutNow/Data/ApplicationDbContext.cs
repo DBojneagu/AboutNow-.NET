@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AboutNow.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -12,7 +12,7 @@ namespace AboutNow.Data
         }
 
         public DbSet<Journal> Journals { get; set; }
-        public DbSet<Category> Categories {get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
 
