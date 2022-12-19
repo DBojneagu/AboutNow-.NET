@@ -1,12 +1,7 @@
 ﻿@model AboutNow.Models.Journal
 @*@Afisarea unui jurnal impreuna cu categoria din care face parte *@
 
-<div class="d-flex justify-content-center">
-    <a class="btn btn-outline-warning " href="/Journals/Index">Afisare Jurnale</a>
-    
-    <a class="btn btn-outline-warning " href="/Journals/New">Adauga Jurnal</a>
-    
-</div>
+
 
 <br />
 
@@ -19,18 +14,22 @@
                             margin-bottom:10px;">
 
 
-   @Html.Partial("JournalInfo", Model)
+   @Html.Partial("JournalInfo",Model)
 
-    <div class="d-flex flex-row justify-content-between p-3 border-1 border-top ">
+    @if (ViewBag.AfisareButoane == true && Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+    {
+        <div class="d-flex flex-row justify-content-between p-3 border-1 border-top ">
 
-        <a class="btn btn-warning" href ="/Journals/Edit/@Model.Id">Editeaza Jurnal</a>
+            <a class="btn btn-warning" href ="/Journals/Edit/@Model.Id">Editeaza Jurnal</a>
 
-        <form method="post" action="/Journals/Delete/@Model.Id">
-        
-            <button class="btn btn-danger" type="submit">Sterge Jurnal</button>
-        </form>
+            <form method="post" action="/Journals/Delete/@Model.Id">
 
-    </div>
+                <button class="btn btn-danger" type="submit">Sterge Jurnal</button>
+            </form>
+
+        </div>
+    
+    }
 
 </div>
 

@@ -1,9 +1,11 @@
 ﻿using AboutNow.Data;
 using AboutNow.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArticlesApp.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext db;
