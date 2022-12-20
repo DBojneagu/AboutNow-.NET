@@ -52,9 +52,12 @@ namespace AboutNow.Controllers
         [Authorize(Roles = "User,Admin")]
         public IActionResult Show(int id)
         {
-            Journal journal = db.Journals.Include("Category").Include("Comments").Include("User")
-                                                  .Where(jrn => jrn.Id == id)
-                                                  .First();
+            Journal journal = db.Journals.Include("Category")
+                                          .Include("Comments")
+                                          .Include("User")
+                                          .Include("Comments.User")
+                                          .Where(art => art.Id == id)
+                                          .First();
 
             SetAccessRights();
 
@@ -79,6 +82,7 @@ namespace AboutNow.Controllers
         public IActionResult Show([FromForm] Comment comment)
         {
             comment.Date = DateTime.Now;
+            comment.UserId = _userManager.GetUserId(User);
 
             if (ModelState.IsValid)
             {
@@ -89,10 +93,14 @@ namespace AboutNow.Controllers
 
             else
             {
-                Journal journal = db.Journals.Include("Category").Include("Comments")
-                               .Where(journal => journal.Id == comment.JournalId)
-                               .First();
+                Journal journal = db.Journals.Include("Category")
+                                         .Include("Comments")
+                                         .Include("User")
+                                         .Include("Comments.User")
+                                         .Where(art => art.Id == comment.JournalId)
+                                         .First();
 
+                SetAccessRights();
                 //return Redirect("/Articles/Show/" + comm.ArticleId);
 
                 return View(journal);
@@ -157,10 +165,10 @@ namespace AboutNow.Controllers
             else
             {
                 TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unui articol care nu va apartine";
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index");
             }
 
-            
+
 
         }
 
@@ -171,7 +179,7 @@ namespace AboutNow.Controllers
             // in variabila asta pt ca le am in edit si de acolo le modific.
 
             Journal journal = db.Journals.Find(id);
-            
+
 
             if (ModelState.IsValid)
             {

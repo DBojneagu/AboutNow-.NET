@@ -51,10 +51,13 @@
                     <p>@comm.Content</p>
                     <small>@comm.Date</small>
 
+                    <strong><i class ="bi bi-person"></i>@comm.User.UserName</strong>
+
                 </div>
                 <br>
-
-                <div class="d-flex">
+                @if (comm.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+                {
+                    <div class="d-flex">
 
                     <div>
 
@@ -71,8 +74,10 @@
                         </form>
 
                     </div>
+                    
 
                 </div>
+                }
 
                 <br />
 
