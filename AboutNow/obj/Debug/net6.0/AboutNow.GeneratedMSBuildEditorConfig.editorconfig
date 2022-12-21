@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\David\Desktop\AboutNow\AboutNow-.net-MVC-6\AboutNow
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/David/Desktop/AboutNow/AboutNow-.net-MVC-6/AboutNow/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/David/Desktop/AboutNow/AboutNow-.net-MVC-6/AboutNow/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -77,6 +81,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/David/Desktop/AboutNow/AboutNow-.net-MVC-6/AboutNow/Views/Journals/Show.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm91cm5hbHNcU2hvdy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/David/Desktop/AboutNow/AboutNow-.net-MVC-6/AboutNow/Views/Profiles/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/David/Desktop/AboutNow/AboutNow-.net-MVC-6/AboutNow/Views/Profiles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/David/Desktop/AboutNow/AboutNow-.net-MVC-6/AboutNow/Views/Profiles/New.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcTmV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/David/Desktop/AboutNow/AboutNow-.net-MVC-6/AboutNow/Views/Profiles/Show.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcU2hvdy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/David/Desktop/AboutNow/AboutNow-.net-MVC-6/AboutNow/Views/Shared/Error.cshtml]

@@ -2,7 +2,7 @@
     ViewBag.Title = "Lista categorii";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center" style="background-color:#85FFBD">@ViewBag.Title</h2>
 <br />
 @if (TempData.ContainsKey("message"))
 {
@@ -14,13 +14,13 @@
 @foreach (var category in ViewBag.Categories)
 {
     <p>@category.CategoryName</p>
-    <a class="btn alert-warning" href="/Categories/Show/@category.Id">Afisare categorie</a>
-    <a class="btn alert-warning" href="/Categories/Edit/@category.Id">Editare categorie</a>
+    <a class="btn " style="background-color : #85FFBD" href="/Categories/Show/@category.Id">Afisare categorie</a>
+    <a class="btn " style="background-color : #FFFB7D" href="/Categories/Edit/@category.Id">Editare categorie</a>
     <br />
     <hr />
     <br />
 }
 <br />
-<a class="btn btn-warning" href="/Categories/New">Adauga o noua categorie</a>
+<a class="btn " style="background-color: #85FFBD" href="/Categories/New">Adauga o noua categorie</a>
 <br />
 

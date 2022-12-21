@@ -3,7 +3,7 @@
     ViewBag.Title = "Editare categorie";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center" >@ViewBag.Title</h2>
 
 @using (Html.BeginForm(controllerName:"Categories",actionName:"Edit",method : FormMethod.Post , routeValues :new{id = Model.Id}))
 
@@ -14,6 +14,6 @@
     @Html.ValidationMessage("CategoryName",null,new{@class ="text-danger"})
     <br /><br />
 
-    <button class="btn btn-success" type="submit">Modifica categoria</button>
+    <button class="btn " style="background-color:#FFFB7D;color : black;" type="submit">Modifica categoria</button>
 }
 
