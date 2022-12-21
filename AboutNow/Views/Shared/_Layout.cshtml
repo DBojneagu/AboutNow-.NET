@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="~/AboutNow.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-warning border-bottom box-shadow mb-3">
+    <header >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3" style="background-color: #85FFBD;
+background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Journals" asp-action="Index">AboutNow</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -35,6 +36,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Journals" asp-action="New">Adauga Jurnal </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Profiles" asp-action="Index">Profilul meu </a>
+                            </li>
                         }
 
 
@@ -42,11 +47,14 @@
 
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Journals" asp-action="Index">Afisare Jurnale</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Journals" asp-action="Index" >Afisare Jurnale</a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Journals" asp-action="New">Adauga Jurnal </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Profiles" asp-action="Index">Profilul meu </a>
                             </li>
                         }
                        

@@ -122,12 +122,17 @@ namespace AboutNow.Data.Migrations
                     b.Property<int?>("JournalId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ProfileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("JournalId");
+
+                    b.HasIndex("ProfileId");
 
                     b.HasIndex("UserId");
 
@@ -168,6 +173,39 @@ namespace AboutNow.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Journals");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Profile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -313,6 +351,10 @@ namespace AboutNow.Data.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("JournalId");
 
+                    b.HasOne("AboutNow.Models.Profile", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ProfileId");
+
                     b.HasOne("AboutNow.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -335,6 +377,15 @@ namespace AboutNow.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Profile", b =>
+                {
+                    b.HasOne("AboutNow.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -396,6 +447,11 @@ namespace AboutNow.Data.Migrations
                 });
 
             modelBuilder.Entity("AboutNow.Models.Journal", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Profile", b =>
                 {
                     b.Navigation("Comments");
                 });
