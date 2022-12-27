@@ -1,4 +1,26 @@
-﻿@model AboutNow.Models.Journal
+﻿@model AboutNow.Models.Profile
 
 
-<h1>Hello!</h1>
+<div class="container rounded bg-white mt-5 mb-3">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="font-weight-bold">@Model.FirstName</span><span class="text-black-50"></span><span> </span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-5 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6 mt-4"><label class="labels">Nume : @Model.FirstName</div>
+                    <div class="col-md-6 mt-4"><label class="labels">Prenume : @Model.LastName</div>
+                    <div class="col-md-6 mt-4"><label class="labels">Descriere : @Model.Description</div>
+                    <div class="col-md-6 mt-4"><label class="labels">Status profil (1 public,0 privat) : @Model.Status</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

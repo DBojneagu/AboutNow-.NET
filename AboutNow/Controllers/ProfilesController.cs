@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace AboutNow.Controllers
 {
@@ -28,12 +29,15 @@ namespace AboutNow.Controllers
         [Authorize(Roles = "User,Admin")]
         public IActionResult Index()
         {
-            var profiles = db.Profiles.Include("User");
+            ViewBag.IdU = _userManager.GetUserId(User);
 
-            ViewBag.Nume = User.Identity?.Name;
-            //ViewBag.OriceDenumireSugestiv
 
-            ViewBag.profile = profiles;
+            var profiles = from profile in db.Profiles
+                           orderby profile.LastName
+                           select profile;
+            ViewBag.Profile = profiles;
+
+
 
             if (TempData.ContainsKey("message"))
             {
@@ -45,19 +49,58 @@ namespace AboutNow.Controllers
 
 
         [Authorize(Roles = "User,Admin")]
-        public IActionResult Show(int id)
+        public IActionResult Show(string id)
         {
-            Profile profile = db.Profiles.Include("User")
-                                        .Where(prf => prf.Id == id)
-                                        .First();
+            
+            if (db.Profiles.Include("User").Where(prf => prf.UserId == id).FirstOrDefault()!= null)
+            {
+                Profile profile = db.Profiles.Include("User")
+                                       .Where(prf => prf.UserId == id)
+                                       .FirstOrDefault();
+                return View(profile);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+         
+        }
 
 
 
+        [Authorize(Roles = "User,Admin")]
+        public IActionResult New()
+        {
+            Profile profile = new Profile();
+          
 
 
             return View(profile);
+
         }
 
+        //adaugarea jurnalului in baza de date
+        [HttpPost]
+        [Authorize(Roles = "User,Admin")]
+        public IActionResult New(Profile profile)
+
+        {
+  
+            profile.UserId = _userManager.GetUserId(User);
+
+            if (ModelState.IsValid)
+            {
+                db.Profiles.Add(profile);
+                db.SaveChanges();
+                TempData["message"] = "Profilul a fost adaugat";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(profile);
+            }
+        }
 
 
 

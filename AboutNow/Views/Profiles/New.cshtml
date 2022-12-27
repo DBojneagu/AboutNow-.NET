@@ -1,5 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model AboutNow.Models.Profile
+<h2 class="text-center"> Adaugare Profil </h2>
+<br />
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Profiles", method: FormMethod.Post))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("FirstName","First Name")
+    <br />
+
+    @Html.TextBox("FirstName",null,new {@class = "form-control",@placeholder = "What is your name?"})
+    <br />
+
+    @Html.ValidationMessageFor(m => m.FirstName,null,new {@class = "text-danger"})
+
+    <br />
+    <br />
+
+
+    @Html.Label("LastName","Last name")
+
+
+    <br />
+    @Html.TextArea("LastName",null,new {@class = "form-control",@placeholder = "What's your last name?"})
+
+    @Html.ValidationMessage("LastName",null,new { @class = "text-danger"})
+
+    <br />
+
+    @Html.Label("Description","Description")
+
+
+    <br />
+    @Html.TextArea("Description",null,new {@class = "form-control",@placeholder = "Tell us about yourself?"})
+
+    @Html.ValidationMessage("Description",null,new { @class = "text-danger"})
+
+    @Html.Label("Status","Profile Status")
+
+
+    <br />
+    @Html.TextArea("Status",null,new {@class = "form-control",@placeholder = "Should your profile be private or public?"})
+
+    @Html.ValidationMessage("Status",null,new { @class = "text-danger"})
+
+
+
+    <br />
+    <button class="btn mt-5" style="background-color : #FFFB7D" type="submit">Adauga Profil</button>
 }
+
+
+
