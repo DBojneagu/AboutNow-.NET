@@ -30,7 +30,7 @@ namespace AboutNow.Controllers
         // HttpGet implicit
         //Pentru fiecare jurnal se afiseaza si utilizatorul care a postat jurnalul
 
-        [Authorize(Roles = "User,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public IActionResult Index()
         {
             var journals = db.Journals.Include("Category").Include("User");
