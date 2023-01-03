@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AboutNow.Data.Migrations
+namespace AboutNow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221220120147_Profile")]
-    partial class Profile
+    [Migration("20221228174107_NewMigrrrrr")]
+    partial class NewMigrrrrr
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -139,6 +139,31 @@ namespace AboutNow.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Friend", b =>
+                {
+                    b.Property<int>("FriendId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FriendId"), 1L, 1);
+
+                    b.Property<bool?>("Accepted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("RequestTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("User1_Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("User2_Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FriendId");
+
+                    b.ToTable("Friends");
                 });
 
             modelBuilder.Entity("AboutNow.Models.Journal", b =>

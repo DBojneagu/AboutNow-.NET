@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AboutNow.Data.Migrations
+namespace AboutNow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221219143514_Migr")]
-    partial class Migr
+    [Migration("20221228174316_NewMigrrrrr4")]
+    partial class NewMigrrrrr4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -124,6 +124,9 @@ namespace AboutNow.Data.Migrations
                     b.Property<int?>("JournalId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ProfileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -131,9 +134,40 @@ namespace AboutNow.Data.Migrations
 
                     b.HasIndex("JournalId");
 
+                    b.HasIndex("ProfileId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Friend", b =>
+                {
+                    b.Property<int>("FriendId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FriendId"), 1L, 1);
+
+                    b.Property<bool?>("Accepted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("RequestTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("User1_Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("User2_Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("FriendId");
+
+                    b.HasIndex("User1_Id");
+
+                    b.HasIndex("User2_Id");
+
+                    b.ToTable("Friends");
                 });
 
             modelBuilder.Entity("AboutNow.Models.Journal", b =>
@@ -170,6 +204,39 @@ namespace AboutNow.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Journals");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Profile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -315,6 +382,10 @@ namespace AboutNow.Data.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("JournalId");
 
+                    b.HasOne("AboutNow.Models.Profile", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ProfileId");
+
                     b.HasOne("AboutNow.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -322,6 +393,17 @@ namespace AboutNow.Data.Migrations
                     b.Navigation("Journal");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Friend", b =>
+                {
+                    b.HasOne("AboutNow.Models.ApplicationUser", null)
+                        .WithMany("SentRequests")
+                        .HasForeignKey("User1_Id");
+
+                    b.HasOne("AboutNow.Models.ApplicationUser", null)
+                        .WithMany("ReceivedRequests")
+                        .HasForeignKey("User2_Id");
                 });
 
             modelBuilder.Entity("AboutNow.Models.Journal", b =>
@@ -337,6 +419,15 @@ namespace AboutNow.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Profile", b =>
+                {
+                    b.HasOne("AboutNow.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -392,12 +483,24 @@ namespace AboutNow.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AboutNow.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("ReceivedRequests");
+
+                    b.Navigation("SentRequests");
+                });
+
             modelBuilder.Entity("AboutNow.Models.Category", b =>
                 {
                     b.Navigation("Journals");
                 });
 
             modelBuilder.Entity("AboutNow.Models.Journal", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Profile", b =>
                 {
                     b.Navigation("Comments");
                 });

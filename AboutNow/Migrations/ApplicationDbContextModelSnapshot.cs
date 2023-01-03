@@ -4,18 +4,16 @@ using AboutNow.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AboutNow.Data.Migrations
+namespace AboutNow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221227135213_NewOne")]
-    partial class NewOne
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,6 +137,35 @@ namespace AboutNow.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("AboutNow.Models.Friend", b =>
+                {
+                    b.Property<int>("FriendId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FriendId"), 1L, 1);
+
+                    b.Property<bool?>("Accepted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("RequestTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("User1_Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("User2_Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("FriendId");
+
+                    b.HasIndex("User1_Id");
+
+                    b.HasIndex("User2_Id");
+
+                    b.ToTable("Friends");
                 });
 
             modelBuilder.Entity("AboutNow.Models.Journal", b =>
@@ -366,6 +393,17 @@ namespace AboutNow.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AboutNow.Models.Friend", b =>
+                {
+                    b.HasOne("AboutNow.Models.ApplicationUser", null)
+                        .WithMany("SentRequests")
+                        .HasForeignKey("User1_Id");
+
+                    b.HasOne("AboutNow.Models.ApplicationUser", null)
+                        .WithMany("ReceivedRequests")
+                        .HasForeignKey("User2_Id");
+                });
+
             modelBuilder.Entity("AboutNow.Models.Journal", b =>
                 {
                     b.HasOne("AboutNow.Models.Category", "Category")
@@ -441,6 +479,13 @@ namespace AboutNow.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AboutNow.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("ReceivedRequests");
+
+                    b.Navigation("SentRequests");
                 });
 
             modelBuilder.Entity("AboutNow.Models.Category", b =>

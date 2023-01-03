@@ -2,9 +2,9 @@
 
 #nullable disable
 
-namespace AboutNow.Data.Migrations
+namespace AboutNow.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class NewMigrrrrr2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
