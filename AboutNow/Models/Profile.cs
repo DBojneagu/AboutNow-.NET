@@ -6,19 +6,14 @@ namespace AboutNow.Models
     {
         [Key]
         public int Id { get; set; }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string Description { get; set; }
-
-        public int? Status { get; set; }
-
+        
+        [Required(ErrorMessage = "Prenumele este obligatoriu")]
+        public string? FirstName { get; set; }
+        [Required(ErrorMessage = "Numele este obligatoriu")]
+        public string? LastName { get; set; }
+        public string? Description { get; set; }
+        public string? Privacy { get; set; }
         public string? UserId { get; set; }
-
-        // PASUL 6 - useri si roluri
         public virtual ApplicationUser? User { get; set; }
-        public virtual ICollection<Comment>? Comments { get; set; }
     }
 }

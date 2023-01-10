@@ -1,5 +1,5 @@
 ﻿@model AboutNow.Models.Profile
-<h2 class="text-center"> Adaugare Profil </h2>
+<h2 class="text-center"> Creare Profil </h2>
 <br />
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Profiles", method: FormMethod.Post))
@@ -17,38 +17,27 @@
     <br />
     <br />
 
-
     @Html.Label("LastName","Last name")
-
-
     <br />
+    
     @Html.TextArea("LastName",null,new {@class = "form-control",@placeholder = "What's your last name?"})
-
     @Html.ValidationMessage("LastName",null,new { @class = "text-danger"})
-
     <br />
 
     @Html.Label("Description","Description")
 
-
     <br />
-    @Html.TextArea("Description",null,new {@class = "form-control",@placeholder = "Tell us about yourself?"})
+    @Html.TextArea("Description",null,new {@class = "form-control",@placeholder = "Describe yourself"})
 
     @Html.ValidationMessage("Description",null,new { @class = "text-danger"})
 
-    @Html.Label("Status","Profile Status")
-
-
-    <br />
-    @Html.TextArea("Status",null,new {@class = "form-control",@placeholder = "Should your profile be private or public?"})
-
-    @Html.ValidationMessage("Status",null,new { @class = "text-danger"})
-
-
+    @Html.Label("Privacy","Profile privacy")
 
     <br />
-    <button class="btn mt-5" style="background-color : #FFFB7D" type="submit">Adauga Profil</button>
+    @Html.TextArea("Privacy",null,new {@class = "form-control",@placeholder = "Choose private or public"})
+
+    @Html.ValidationMessage("Privacy",null,new { @class = "text-danger"})
+
+    <br />
+    <button class="btn mt-5" style="background-color : #FFFB7D" type="submit">Creeaza Profil</button>
 }
-
-
-

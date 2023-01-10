@@ -21,17 +21,15 @@ background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-
-                        @if(User.IsInRole("Admin"))
-
-                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Journals" asp-action="Index">Afisare Jurnale</a>
                             </li>
 
+                            @if (User.IsInRole("Admin")) {
                                 <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Afisare Categorii</a>
-                            </li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Afisare Categorii</a>
+                                </li>
+                            }
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Journals" asp-action="New">Adauga Jurnal </a>
@@ -42,36 +40,12 @@ background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
                             </li>
                             
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Friends" asp-action="Index">Friends </a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Friends" asp-action="Index">Prieteni </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Index">Grupuri</a>
                             </li>
-
-                        }
-
-
-                        @if (User.IsInRole("User"))
-
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Journals" asp-action="Index" >Afisare Jurnale</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Journals" asp-action="New">Adauga Jurnal </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Profiles" asp-action="Index">Profilul meu </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Index">Grupuri</a>
-                            </li>
-                        }
-                       
-                      
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

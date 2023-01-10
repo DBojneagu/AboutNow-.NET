@@ -1,15 +1,19 @@
-﻿@{
-    ViewBag.Title = "Index";
-}
-<h2 class="text-center">Afisare Profil</h2>
+﻿<h2 class="text-center"> Afisare Profil </h2>
 <br />
+
 @if (ViewBag.Message != null)
 {
     <h2 class="alert-warning p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
 }
 
-
 <div class="d-flex justify-content-center" style="margin-top:200px;">
-    <a class="btn " style="background-color: #85FFBD;width :200px; margin-right : 200px;" href="/Profiles/New">Creeaza Profil</a>
-    <a class="btn " style="background-color: #85FFBD;width :200px;" href="/Profiles/Show/@ViewBag.IdU">Vezi Profilul Tau</a>
+    @if (ViewBag.Created == true) {
+        <a class="btn " style="background-color: #85FFBD;width :200px; margin-right : 200px;" href="/Profiles/Edit/@ViewBag.Profile.Id">Editeaza Profil</a>
+        <a class="btn " style="background-color: #85FFBD;width :200px;" href="/Profiles/Show/@ViewBag.Profile.Id">Vezi Profilul Tau</a>
+    }
+
+    @if (ViewBag.Created == false)
+    {
+        <a class="btn " style="background-color: #85FFBD;width :200px;" href="/Profiles/New">Creeaza Profil</a>
+    }
 </div>

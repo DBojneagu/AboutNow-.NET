@@ -1,6 +1,5 @@
 ﻿@model AboutNow.Models.Profile
 
-
 <div class="container rounded bg-white mt-5 mb-3">
     <div class="row">
         <div class="col-md-3 border-right">
@@ -14,13 +13,12 @@
                     <h4 class="text-right">Profile</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6 mt-4"><label class="labels">Nume : @Model.FirstName</div>
                     <div class="col-md-6 mt-4"><label class="labels">Prenume : @Model.LastName</div>
+                    <div class="col-md-6 mt-4"><label class="labels">Nume : @Model.FirstName</div>
                     <div class="col-md-6 mt-4"><label class="labels">Descriere : @Model.Description</div>
-                    <div class="col-md-6 mt-4"><label class="labels">Status profil (1 public,0 privat) : @Model.Status</div>
+                    <div class="col-md-6 mt-4"><label class="labels">Status profil: @Model.Privacy</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>
