@@ -130,6 +130,7 @@ namespace AboutNow.Controllers
         public IActionResult New(Journal journal)
 
         {
+
             journal.Date = DateTime.Now;
             journal.UserId = _userManager.GetUserId(User);
 

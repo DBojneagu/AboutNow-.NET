@@ -1,0 +1,75 @@
+﻿<h2 class=" p-3 rounded-3 text-center mb-5" style="background-color: #85FFBD; background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
+    @ViewBag.Group.Name
+</h2>
+
+@foreach (var comm in ViewBag.Messages)
+{
+    <div class="container" style="width:90%">
+        <div class="row">
+            @if (comm.UserId == ViewBag.UserCurent) {
+                <div class="col-6"></div>
+            }
+            <div class="col-6">
+                <div class="border border-3 rounded">
+                    <div class="d-flex  mb-2 " style="background-color: #85FFBD; background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
+                            <h4 class="card-title  py-1 px-1 rounded-5 d-flex text-center"><i class="bi bi-person"></i> @comm.UserName</h4>
+                    </div>
+                    <h6 style="margin:8px">@comm.Content</h6>
+                    <br />
+                    <p style="margin:8px">@comm.Posted</p>
+
+                    @if (comm.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin == true) {
+                        <div class="d-flex">
+                            <div class="d-flex flex-row justify-content-between p-3 border-1 border-top ">
+
+                                <a class="btn " style="background-color:#85FFBD; margin:3px;" href="/GroupMessages/Edit/@comm.Id"><i class="bi bi-pencil-square"></i>Editeaza</a>
+                                <form method="post" action="/GroupMessages/Delete/@comm.Id">
+                                    <button class="btn btn-danger" type="submit" style="margin:3px"><i class="bi bi-trash"></i>Sterge</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            @if (comm.UserId != ViewBag.UserCurent) {
+                <div class="col-6"></div>
+            }
+        </div>
+    </div>
+    <br />
+}
+
+@if (ViewBag.Message != null)
+{
+    <h2 class=" p-3 rounded-3 text-center mb-5" style="background-color: #85FFBD;
+background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
+        @ViewBag.Message
+    </h2>
+}
+
+<div class="container rounded">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card">
+                <form method="post" action="/GroupMessages/SendMessage">
+                    <div class="card-body">
+                        <input type="hidden" name="GroupId" value="@ViewBag.Group.Id" />
+                        <label>Scrie un mesaj</label>
+                        <br />
+                        <textarea class="form-control" name="Content"></textarea>
+
+                        @Html.ValidationMessage("Content", null, new { @class = "text-danger"})
+
+                        <br /><br />
+                        <button class="btn  " style="background-color:#85FFBD" type="submit">Adauga mesajul</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+</div>

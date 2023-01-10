@@ -1,0 +1,29 @@
+﻿@model AboutNow.Models.Group
+<h2 class="text-center"> Creeaza un Grup Nou </h2>
+<br />
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Groups", method: FormMethod.Post))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Name","Numele Grupului")
+    <br />
+
+    @Html.TextBox("Name",null,new {@class = "form-control",@placeholder = "How should we name it?"})
+    <br />
+
+    @Html.ValidationMessageFor(m => m.Name,null,new {@class = "text-danger"})
+
+    <br />
+    <br />
+
+    @Html.Label("Description","Descrierea Grupului")
+    <br />
+    @Html.TextArea("Description",null,new {@class = "form-control",@placeholder = "Write a description."})
+
+    @Html.ValidationMessage("Description",null,new { @class = "text-danger"})
+
+    <br />
+    <br />
+    <button class="btn mt-5" style="background-color : #FFFB7D" type="submit">Creeaza Grup</button>
+}

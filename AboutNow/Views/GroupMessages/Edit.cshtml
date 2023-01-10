@@ -1,0 +1,19 @@
+﻿@model AboutNow.Models.GroupMessage
+
+<h2> Editare Mesaj </h2>
+<br />
+
+@using (Html.BeginForm(controllerName: "GroupMessages", actionName: "Edit", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+{
+    @Html.Label("Content", "Continut Mesaj")
+    <br />
+
+    @Html.Editor("Content", new { @class = "form-control" })
+    <br />
+
+    @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn  btn-primary" type="submit">Editeaza mesajul</button>
+}

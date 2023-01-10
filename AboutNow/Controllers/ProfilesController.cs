@@ -51,8 +51,21 @@ namespace AboutNow.Controllers
         [Authorize(Roles = "User,Admin")]
         public IActionResult Show(string id)
         {
-            
-            if (db.Profiles.Include("User").Where(prf => prf.UserId == id).FirstOrDefault()!= null)
+
+
+            // daca nu e profilu meu -> daca nu e public -> daca e prieten 
+
+            //if   _userManager.GetUserId(User) == id daca e profilu meu
+
+
+            // id1= _userManager.GetUserId(User);
+            // id2 = id ;
+            // (if id1.Status == 0)  // daca e privat sau public 
+            //      var prieten = db.Friends
+            //Where(fr => fr.User1_Id == id1 && fr.User2_Id == id2 || fr.User1_id=id2 && fr.User2_id =id1) daca e prieten sau nu cu celealt user
+            // afisezi lalala
+
+            if (db.Profiles.Include("User").Where(prf => prf.UserId == id).FirstOrDefault() != null)
             {
                 Profile profile = db.Profiles.Include("User")
                                        .Where(prf => prf.UserId == id)
@@ -64,7 +77,7 @@ namespace AboutNow.Controllers
                 return RedirectToAction("Index");
             }
 
-         
+
         }
 
 
@@ -73,7 +86,7 @@ namespace AboutNow.Controllers
         public IActionResult New()
         {
             Profile profile = new Profile();
-          
+
 
 
             return View(profile);
@@ -86,7 +99,7 @@ namespace AboutNow.Controllers
         public IActionResult New(Profile profile)
 
         {
-  
+
             profile.UserId = _userManager.GetUserId(User);
 
             if (ModelState.IsValid)

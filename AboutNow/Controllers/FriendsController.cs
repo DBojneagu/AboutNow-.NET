@@ -34,11 +34,9 @@ namespace AboutNow.Controllers
         
         public ActionResult Index()
         {
-            var users = (from user in db.Users
-                                          .Include(u => u.SentRequests)
+            var users = from user in db.Users.Include(u => u.SentRequests)
                                         .Include(u => u.ReceivedRequests)
-                   select user).ToList();
-
+                        select user;
       
             ViewBag.Users = users;
 
