@@ -25,21 +25,27 @@ namespace AboutNow.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
-        //Se afiseaza lista tuturor journalelor
-        //din baza de date impreuna cu categoria din care fac parte
-        // HttpGet implicit
-        //Pentru fiecare jurnal se afiseaza si utilizatorul care a postat jurnalul
-
-        
         public ActionResult Index()
         {
-            var users = from user in db.Users.Include(u => u.SentRequests)
-                                        .Include(u => u.ReceivedRequests)
+            var users = from user in db.Users
+                                       .Include(u => u.SentRequests)
+                                       .Include(u => u.ReceivedRequests)
                         select user;
-      
-            ViewBag.Users = users;
+            var currentUser = db.Users.Find(_userManager.GetUserId(User));
 
+            var UserFriendships = db.Friends.Where(f => f.User1_Id == currentUser.Id || f.User2_Id == currentUser.Id).ToList();
+            var friends = new List<string>();
+            foreach (var friendship in UserFriendships)
+            {
+                if (friendship.User1_Id == currentUser.Id)
+                    friends.Add(friendship.User2_Id);
+                else
+                    friends.Add(friendship.User1_Id);
+            }
+
+            ViewBag.Users = users;
+            ViewBag.CurrentUser = currentUser;
+            ViewBag.UserFriends = friends;
             return View();
         }
 
