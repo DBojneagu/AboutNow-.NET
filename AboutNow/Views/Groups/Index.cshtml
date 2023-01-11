@@ -1,0 +1,34 @@
+﻿<h2 style="text-align:center;">Afisarea grupurilor</h2>
+
+<a class="my-2 card btn" style="background-color: #85FFBD; background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);" href="/Groups/New">Creeaza un Grup</a>
+
+@if (ViewBag.Message != null)
+{
+    <h2 class=" p-3 rounded-3 text-center mb-5" style="background-color: #85FFBD;
+background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
+        @ViewBag.Message
+    </h2>
+}
+
+@foreach (var group in ViewBag.Groups) {
+    <div class="card " style="width : 35rem; margin : 0 auto; float : none;">
+
+        <div class="card-body ">
+
+            <div class="d-flex  mb-3 " style="background-color: #85FFBD; background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
+                <h3 class="card-title  py-3 px-3 rounded-3 d-flex text-center">@group.Name</h3>
+            </div>
+            <div class="card-text my-1">Descriere: @group.Description</div>
+            <br />
+            <div class="card-text my-1">Creat pe: @group.CreatedDate</div>
+        </div>
+    </div>
+
+    <div class ="d-flex flex-row justify-content-center">
+        <a class="btn " style="width :35rem; background-color: #85FFBD;
+       background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);" href="/Groups/Show/@group.Id">Afisare Grup</a>
+    </div>
+    
+    <br />
+    <br />
+}

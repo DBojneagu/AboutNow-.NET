@@ -1,0 +1,32 @@
+﻿@model AboutNow.Models.Group
+
+<div class="card" style="width : 35rem;margin : 0 auto;float : none;margin-bottom:10px;">
+    <div class="card-body ">
+
+        <div class="d-flex  mb-3 " style="background-color: #85FFBD;background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);">
+            <h3 class="card-title  py-3 px-3 rounded-3 d-flex text-center">@Model.Name</h3>
+        </div>
+        <div class="card-text">Descriere: @Model.Description</div>
+        <br />
+        <div class="card-text">Creator: <i class="bi bi-person"></i> @ViewBag.User.UserName</div>
+        <br />
+        <div class="card-text">Creat pe: @Model.CreatedDate</div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-between p-3 border-1 border-top ">
+            
+        <a class="btn " style="background-color: #82C3EC" href="/GroupMessages/Show/@Model.Id">Intra in Grup</a>
+
+        @if (ViewBag.AfisareButoane == true && Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+        {
+            <a class="btn " style="background-color:#85FFBD" href="/Groups/Edit/@Model.Id">Editeaza Grup</a>
+
+            <form method="post" action="/Groups/Delete/@Model.Id">
+                <button class="btn btn-danger" type="submit">Sterge Grup</button>
+            </form>
+        }
+    </div>
+</div>
+
+<br />
+<br />

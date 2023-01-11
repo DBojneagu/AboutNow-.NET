@@ -15,7 +15,8 @@ namespace AboutNow.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Profile> Profiles { get; set; }
-
-
+        public DbSet<Friend> Friends { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupMessage> GroupMessages { get; set; }
     }
 }
