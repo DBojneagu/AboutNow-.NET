@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\AboutNow.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\david\\Desktop\\aboutnowproject\\AboutNow-.net-MVC-6\\AboutNow\\wwwroot\\css\\background.jpg",
+      "PackagePath": "staticwebassets\\css\\background.jpg"
+    },
+    {
       "Id": "C:\\Users\\david\\Desktop\\aboutnowproject\\AboutNow-.net-MVC-6\\AboutNow\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

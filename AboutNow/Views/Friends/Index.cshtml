@@ -1,25 +1,38 @@
 ﻿<h2> Afisare utilizatori </h2>
 
-@foreach (var user in ViewBag.Users)
+@for (var i = 0; i < ViewBag.UserLength; i++)
 {
-    @if (user.Id != ViewBag.User.Id) {
-        <h1>@user.UserName</h1>
-        <p>@user.Email</p>
+    
+    @if (ViewBag.Users[i].Id != ViewBag.CurrentUser.Id)
+    {
+        <h1>@ViewBag.Users[i].UserName</h1>
+        <p>@ViewBag.Users[i].Email</p>
         <br />
 
-        @if (ViewBag.Friends.Contains(user.Id) == true) {
+        @if (ViewBag.UserFriends.Contains(ViewBag.Users[i].Id) == true  )
+        {
             @*afisam ca deja e prieten mai frumos*@
             <p>Deja prieteni</p>
-        }
 
-        @if (ViewBag.Friends.Contains(user.Id) == false)
+        }
+        @*
+
+        @if (ViewBag.UserFriends.Contains(ViewBag.Users[i].Id) == true ViewBag.Accepted[i] == false)
+        {
+            
+            <p>In asteptare</p>
+
+        }
+        *@
+        @if (ViewBag.UserFriends.Contains(ViewBag.Users[i].Id) == false)
         {
             <form method="post" action="/Friends/AddFriend">
-                <input type="hidden" name="UserId" value="@user.Id" />
+                <input type="hidden" name="UserId" value="@ViewBag.Users[i].Id" />
                 <button type="submit">Add Friend</button>
             </form>
             <hr />
         }
+        <a class ="btn btn-success "href="/Profiles/Show/@ViewBag.Profiles[i]">Vezi profilul</a>
         @*
         <ul>
             @foreach (var friend in user.SentRequests)

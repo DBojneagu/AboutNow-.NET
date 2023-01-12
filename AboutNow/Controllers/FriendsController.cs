@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
@@ -27,25 +28,53 @@ namespace AboutNow.Controllers
         }
         public ActionResult Index()
         {
-            var users = from user in db.Users
-                                       .Include(u => u.SentRequests)
-                                       .Include(u => u.ReceivedRequests)
-                        select user;
+
+            var all = db.Profiles.Include("User").ToList();
+            List<int> profiles = new List<int>();
+            foreach ( var a in all )
+            {
+                profiles.Add( a.Id );
+            }
+
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var a in all)
+            {
+                users.Add(a.User);
+            }
+
+
             var currentUser = db.Users.Find(_userManager.GetUserId(User));
 
             var UserFriendships = db.Friends.Where(f => f.User1_Id == currentUser.Id || f.User2_Id == currentUser.Id).ToList();
             var friends = new List<string>();
+            var accepted = new List<bool>();
             foreach (var friendship in UserFriendships)
             {
                 if (friendship.User1_Id == currentUser.Id)
+                {
                     friends.Add(friendship.User2_Id);
+                    accepted.Add((bool)friendship.Accepted);
+
+                }
                 else
+
+                {
                     friends.Add(friendship.User1_Id);
+                    accepted.Add((bool)friendship.Accepted);
+
+                }
+
             }
 
+            ViewBag.Accepted = accepted;
+            
+
+            ViewBag.Profiles = profiles;
             ViewBag.Users = users;
+            ViewBag.UserLength = users.Count;
             ViewBag.CurrentUser = currentUser;
             ViewBag.UserFriends = friends;
+
             return View();
         }
 
@@ -58,7 +87,7 @@ namespace AboutNow.Controllers
             Friend friendship = new Friend();
             friendship.User1_Id = currentUser;
             friendship.User2_Id = friendToAdd;
-            friendship.Accepted = true; // Accepted = false, iar in lista de cereri -> accept
+            friendship.Accepted = false; // Accepted = false, iar in lista de cereri -> accept
             friendship.RequestTime = DateTime.Now;
 
             // TODO: sa existe try si catch astfel incat sa nu se trimita o cerere de doua ori
@@ -69,6 +98,18 @@ namespace AboutNow.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        
+        public IActionResult AcceptFriend(int id)
+        {
+
+            var request = db.Friends.Find(id);
+            request.Accepted = true;
+            db.SaveChanges();
+
+            var profileId = db.Profiles.Where(p => p.UserId == request.User2_Id).First().Id;
+            return Redirect("/Profiles/Show/" + profileId);
         }
     }
 }

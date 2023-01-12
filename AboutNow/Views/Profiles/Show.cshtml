@@ -3,7 +3,8 @@
 <div class="container rounded bg-white mt-5 mb-3">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                 <span class="font-weight-bold">@Model.FirstName</span><span class="text-black-50"></span><span> </span>
             </div>
         </div>
@@ -21,4 +22,39 @@
             </div>
         </div>
     </div>
+</div>@*
+     ViewBag.RequestFriendsId = requestFriendsId;
+                ViewBag.RequestUserNames = requestUserNames;
+                ViewBag.FriendsLength = requestFriendsId.Capacity;
+                ViewBag.NamesLength = requestUserNames.Capacity;
+
+*@
+
+
+<div>
+    <ul> 
+
+        @if (ViewBag.UserCurent.Id == Model.UserId)
+        {
+            @if (ViewBag.NamesLength > 0)
+            {
+                <h3>Received requests from  </h3>
+                @for (int i = 0; i < ViewBag.NamesLength && i < ViewBag.FriendsLength; i++)
+                {
+                    <li> @ViewBag.RequestUserNames[i]</li>
+                    <a class="btn  " style="background-color:#85FFBD" href="/Friends/AcceptFriend/@ViewBag.RequestFriendsId[i]">Accepta</a>
+                }
+            }
+
+            @if (ViewBag.ActualFriends != null)
+            {
+                <h3> Lista prieteni </h3>
+                @foreach (var name in ViewBag.ActualFriends)
+                {
+                    <li>@name</li>
+                }
+            }
+        }
+    </ul>
 </div>
+

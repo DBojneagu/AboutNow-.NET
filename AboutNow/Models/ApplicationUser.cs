@@ -9,12 +9,12 @@ namespace AboutNow.Models
 
         [ForeignKey("User1_Id")]
 
-        
+
         public virtual ICollection<Friend>? SentRequests { get; set; }
 
-        
+
         [ForeignKey("User2_Id")]
-       
+
         public virtual ICollection<Friend>? ReceivedRequests { get; set; }
     }
 }

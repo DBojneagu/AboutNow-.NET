@@ -1,4 +1,8 @@
-﻿<h2 class="text-center"> Afisare Profil </h2>
+﻿
+
+
+
+<h2 class="text-center"> Afisare Profil </h2>
 <br />
 
 @if (ViewBag.Message != null)
@@ -9,6 +13,7 @@
 <div class="d-flex justify-content-center" style="margin-top:200px;">
     @if (ViewBag.Created == true) {
         <a class="btn " style="background-color: #85FFBD;width :200px; margin-right : 200px;" href="/Profiles/Edit/@ViewBag.Profile.Id">Editeaza Profil</a>
+        <a class="btn " style="background-color: #85FFBD;width :200px; margin-right : 200px;" href="/Profiles/ShowProfiles">Vezi Toate Profilele</a>
         <a class="btn " style="background-color: #85FFBD;width :200px;" href="/Profiles/Show/@ViewBag.Profile.Id">Vezi Profilul Tau</a>
     }
 
@@ -17,3 +22,4 @@
         <a class="btn " style="background-color: #85FFBD;width :200px;" href="/Profiles/New">Creeaza Profil</a>
     }
 </div>
+

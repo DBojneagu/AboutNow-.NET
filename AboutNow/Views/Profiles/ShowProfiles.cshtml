@@ -1,0 +1,41 @@
+﻿<form method="GET">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control"
+               placeholder="Search topics or keywords" name="search"
+               value="@ViewBag.SearchString">
+        <button class="btn btn-outline-success"
+                type="submit">
+            Search
+        </button>
+    </div>
+</form>
+
+@foreach (var profil in ViewBag.Profiles)
+{
+        <div class="container rounded bg-white mt-5 mb-3">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="font-weight-bold">@profil.FirstName</span><span class="text-black-50"></span><span> </span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-5 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6 mt-4"><label class="labels">Prenume : @profil.LastName</div>
+                    <div class="col-md-6 mt-4"><label class="labels">Nume : @profil.FirstName</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <a class="btn " style="background-color: #85FFBD;width :200px; margin-left:70px;" href="/Profiles/Show/@profil.Id">Vezi Profilul</a>
+
+        <br />
+        <br />
+}

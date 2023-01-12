@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Security.Cryptography.Pkcs;
 
 namespace AboutNow.Controllers
 {
@@ -32,6 +33,7 @@ namespace AboutNow.Controllers
             var userId = _userManager.GetUserId(User);
             var profile = db.Profiles.Where(p => p.UserId == userId).FirstOrDefault();
 
+
             if (profile == null)
                 ViewBag.Created = false;
             else {
@@ -46,21 +48,109 @@ namespace AboutNow.Controllers
         }
 
         [Authorize(Roles = "User,Admin")]
+        public IActionResult ShowProfiles()
+        {
+            var profiles = db.Profiles.Include("User");
+
+            var search = "";
+
+            if (Convert.ToString(HttpContext.Request.Query["search"]) != null)
+            {
+                // eliminam spatiile libere
+                search = Convert.ToString(HttpContext.Request.Query["search"]).Trim();
+                //  profiles = profiles.Contains(search);
+                List<int> profileIds = db.Profiles.Where(at => at.FirstName.Contains(search) || at.LastName.Contains(search)).Select(a => a.Id).ToList();
+
+                profiles = db.Profiles.Where(profile => profileIds.Contains(profile.Id)).Include("User");
+                
+            }
+            ViewBag.SearchString = search;
+            ViewBag.Profiles = profiles;
+            return View();
+
+        }
+
+        [Authorize(Roles = "User,Admin")]
         public IActionResult Show(int id)
         {
+
+            var all = db.Profiles.Include("User").ToList();
+            List<int> profiles = new List<int>();
+            foreach (var a in all)
+            {
+                profiles.Add(a.Id);
+            }
+
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            foreach (var a in all)
+            {
+                users.Add(a.User);
+            }
             var profile = db.Profiles.Where(p => p.Id == id).FirstOrDefault();
+
+            var currentUser = db.Users.Find(_userManager.GetUserId(User));
+
+            var UserFriendships = db.Friends.Where(f => f.User1_Id == currentUser.Id || f.User2_Id == currentUser.Id).ToList();
+
+
+
+            var friends = new List<string>();
+            var actualfriends = new List<string>();
+            foreach (var friendship in UserFriendships)
+            {
+                if (friendship.Accepted == true)
+                {
+                    if (friendship.User1_Id == currentUser.Id)
+                    {
+                        friends.Add(friendship.User2_Id);
+                        var name = db.Users.Where(u => u.Id == friendship.User2_Id).First().UserName;
+                        actualfriends.Add(name);
+                    }
+                    else
+                    {
+                        friends.Add(friendship.User1_Id);
+                        var name = db.Users.Where(u => u.Id == friendship.User1_Id).First().UserName;
+                        actualfriends.Add(name);
+                    }
+                }
+            }
+
+            var requestFriendsId = new List<int>();
+            var requestUserNames = new List<string>();
+            foreach (var friendship in UserFriendships)
+            {
+                if (friendship.Accepted == false)
+                {
+                    if (friendship.User2_Id == currentUser.Id)
+                    {
+                        requestFriendsId.Add(friendship.FriendId);
+                        var name = db.Users.Where(u => u.Id == friendship.User1_Id).First().UserName;
+                        requestUserNames.Add(name);
+                    }
+                }
+            }
+
             if (profile == null)
             {
                 TempData["message"] = " Profilul nu exista";
                 return RedirectToAction("Index");
             }
 
-            if (User.IsInRole("Admin") || profile.Privacy == "public" || _userManager.GetUserId(User) == profile.UserId) // || suntem prieteni
+            if (User.IsInRole("Admin") || profile.Privacy == "public" || _userManager.GetUserId(User) == profile.UserId  ||friends.Contains(profile.UserId)) // || suntem prieteni
             {
+                ViewBag.RequestFriendsId = requestFriendsId;
+                ViewBag.RequestUserNames = requestUserNames;
+                ViewBag.FriendsLength = requestFriendsId.Count;
+                ViewBag.NamesLength = requestUserNames.Count;
+
+                ViewBag.UserCurent = currentUser;
+                ViewBag.Friends = UserFriendships;
+                ViewBag.ActualFriends = actualfriends;
+                
                 return View(profile);
+                
             }
-            //      var prieten = db.Friends
-            //Where(fr => fr.User1_Id == id1 && fr.User2_Id == id2 || fr.User1_id=id2 && fr.User2_id =id1) daca e prieten sau nu cu celealt user
+
             TempData["message"] = " Profilul este privat ";
             return RedirectToAction("Index");
         }

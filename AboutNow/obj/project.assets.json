@@ -10459,23 +10459,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\radua\\.nuget\\packages\\": {},
+    "C:\\Users\\david\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\radua\\Desktop\\AboutNow-.net-MVC-6\\AboutNow\\AboutNow.csproj",
+      "projectUniqueName": "C:\\Users\\david\\Desktop\\aboutnowproject\\AboutNow-.net-MVC-6\\AboutNow\\AboutNow.csproj",
       "projectName": "AboutNow",
-      "projectPath": "C:\\Users\\radua\\Desktop\\AboutNow-.net-MVC-6\\AboutNow\\AboutNow.csproj",
-      "packagesPath": "C:\\Users\\radua\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\radua\\Desktop\\AboutNow-.net-MVC-6\\AboutNow\\obj\\",
+      "projectPath": "C:\\Users\\david\\Desktop\\aboutnowproject\\AboutNow-.net-MVC-6\\AboutNow\\AboutNow.csproj",
+      "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\david\\Desktop\\aboutnowproject\\AboutNow-.net-MVC-6\\AboutNow\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\radua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -10548,7 +10548,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
