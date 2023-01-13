@@ -18,4 +18,5 @@ You need to download the whole main branch, and after that, start the applicatio
 # Database diagram
 
 
-![AboutNow](https://user-images.githubusercontent.com/93039914/212147960-29076e4a-9d3c-47da-bdcb-797760dc62ed.jpg)
+![WhatsApp Image 2023-01-13 at 19 19 04](https://user-images.githubusercontent.com/93039914/212380150-fe0fb74c-6a34-4362-9b0b-aaddb3c98950.jpeg)
+
